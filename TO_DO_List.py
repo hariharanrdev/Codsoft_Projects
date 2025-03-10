@@ -1,26 +1,37 @@
-import tkinter as tk
-from tkinter import messagebox
+def main():
+    todo_list = TodoList()
+    while True:
+        print("\nTo-Do List Menu:")
+        print("1. Add Task")
+        print("2. View Tasks")
+        print("3. Update Task")
+        print("4. Delete Task")
+        print("5. Mark Task as Completed")
+        print("6. Exit")
 
-class TodoApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("To-Do List")
-        self.tasks = []
+        choice = input("Choose an option: ")
 
-        self.task_entry = tk.Entry(root, width=50)
-        self.task_entry.pack(pady=10)
+        if choice == '1':
+            title = input("Enter task title: ")
+            description = input("Enter task description: ")
+            todo_list.add_task(title, description)
+        elif choice == '2':
+            todo_list.view_tasks()
+        elif choice == '3':
+            index = int(input("Enter task number to update: ")) - 1
+            title = input("Enter new task title: ")
+            description = input("Enter new task description: ")
+            todo_list.update_task(index, title, description)
+        elif choice == '4':
+            index = int(input("Enter task number to delete: ")) - 1
+            todo_list.delete_task(index)
+        elif choice == '5':
+            index = int(input("Enter task number to mark as completed: ")) - 1
+            todo_list.mark_completed(index)
+        elif choice == '6':
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
-        self.add_task_button = tk.Button(root, text="Add Task", command=self.add_task)
-        self.add_task_button.pack(pady=5)
-
-        self.task_listbox = tk.Listbox(root, width=50, height=10)
-        self.task_listbox.pack(pady=10)
-
-        self.delete_task_button = tk.Button(root, text="Delete Task", command=self.delete_task)
-        self.delete_task_button.pack(pady=5)
-
-    def add_task(self):
-        task = self.task_entry.get()
-        if task:
-            self.tasks.append(task)
-           
+if __name__ == "__main__":
+    main()
